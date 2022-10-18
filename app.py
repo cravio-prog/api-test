@@ -12,11 +12,11 @@ def apiproc(nome=None):
             print("richiesta POST")
             print("nome",nome)
             if nome== "mailfeed":
-                email_get=request.args.get('email', '')
+                email_get=request.args.get('mail', '')
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
                 return render_template("mailfeed.html",email=email_get)
             if nome== "article":
-                email_get=request.args.get('email', '')
+                email_get=request.args.get('mail', '')
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
                 return render_template("article.html",email=email_get)
 
