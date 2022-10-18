@@ -13,7 +13,7 @@ def apiproc(nome=None):
             print("nome",nome)
             if nome== "mailfeed":
                 email_get=request.args.get('mail', '')
-                if email_get == "mail":
+                if email_get != "":
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
                     return render_template("mailfeed.html",email=email_get)
                 else:
