@@ -15,6 +15,10 @@ def apiproc(nome=None):
                 email_get=request.args.get('mail', '')
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
                 return render_template("mailfeed.html",email=email_get)
+            if nome== "mailfeed2":
+                email_get=request.args.get('mail', '')
+#                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
+                return render_template("mailfeed2.html",email=email_get)
             if nome== "article":
                 email_get=request.args.get('mail', '')
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
