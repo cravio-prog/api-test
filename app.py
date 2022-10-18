@@ -13,12 +13,11 @@ def apiproc(nome=None):
             print("nome",nome)
             if nome== "mailfeed":
                 email_get=request.args.get('mail', '')
+                if email_get == "mail":
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
-                return render_template("mailfeed.html",email=email_get)
-            if nome== "mailfeed2":
-                email_get=request.args.get('mail', '')
-#                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
-                return render_template("mailfeed2.html",email=email_get)
+                    return render_template("mailfeed.html",email=email_get)
+                else:
+                    return "ERROR"
             if nome== "article":
                 email_get=request.args.get('mail', '')
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
