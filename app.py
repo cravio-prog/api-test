@@ -23,6 +23,30 @@ def apiproc(nome=None):
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
                 return render_template("article.html",email=email_get)
 
+            if nome== "staticfeed":
+                return render_template("staticfeed.html")
+            if nome== "staticfeed2":
+
+                return render_template("staticfeed2.html")
+
+    except Exception as e:
+            print(e)
+            return "ERR - " + str(e)
+
+@app.route("/staticfeed",methods=["GET"])
+def staticfeed(nome=None):
+    try:
+        return render_template("staticfeed.html")
+
+    except Exception as e:
+            print(e)
+            return "ERR - " + str(e)
+
+@app.route("/staticfeed2",methods=["GET"])
+def staticfeed2(nome=None):
+    try:
+        return render_template("staticfeed2.html")
+
     except Exception as e:
             print(e)
             return "ERR - " + str(e)
