@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,url_for
-import json
 from flask import make_response
+import htmlmin
 
 app = Flask(__name__)
 
@@ -38,7 +38,9 @@ def apiproc(nome=None):
 def staticfeed(nome=None):
     try:
         f=open("templates/staticfeed.html","r")
-        response = make_response(f.read())
+        s = f.read()
+#        s = htmlmin.minify(s)
+        response = make_response(s)
         response.headers.set('Content-Type', 'application/rss+xml')
         f.close()
         return response
