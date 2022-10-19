@@ -36,7 +36,9 @@ def apiproc(nome=None):
 @app.route("/staticfeed",methods=["GET"])
 def staticfeed(nome=None):
     try:
-        return render_template("staticfeed.html")
+        f=open("templates/staticfeed.html","r")
+        s = f.read()
+        return s #render_template("staticfeed.html")
 
     except Exception as e:
             print(e)
