@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request,redirect,url_for
 import json
+from flask import make_response
 
 app = Flask(__name__)
 
@@ -37,17 +38,23 @@ def apiproc(nome=None):
 def staticfeed(nome=None):
     try:
         f=open("templates/staticfeed.html","r")
-        s = f.read()
-        return s #render_template("staticfeed.html")
+        response = make_response(f.read())
+        response.headers.set('Content-Type', 'application/rss+xml')
+        f.close()
+        return response
 
     except Exception as e:
-            print(e)
-            return "ERR - " + str(e)
+        print(e)
+        return "ERR - " + str(e)
 
 @app.route("/staticfeed2",methods=["GET"])
 def staticfeed2(nome=None):
     try:
-        return render_template("staticfeed2.html")
+        f=open("templates/staticfeed2.html","r")
+        response = make_response(f.read())
+        response.headers.set('Content-Type', 'application/rss+xml')
+        f.close()
+        return response
 
     except Exception as e:
             print(e)
