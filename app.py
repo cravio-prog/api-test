@@ -1,6 +1,8 @@
 from flask import Flask,render_template,request,redirect,url_for
 from flask import make_response
 import htmlmin
+import requests
+import time
 
 app = Flask(__name__)
 
@@ -35,7 +37,7 @@ def apiproc(nome=None):
             return "ERR - " + str(e)
 
 @app.route("/staticfeed",methods=["GET"])
-def staticfeed(nome=None):
+def staticfeed():
     try:
         f=open("templates/staticfeed.html","r")
         s = f.read()
@@ -50,13 +52,27 @@ def staticfeed(nome=None):
         return "ERR - " + str(e)
 
 @app.route("/staticfeed2",methods=["GET"])
-def staticfeed2(nome=None):
+def staticfeed2():
     try:
         f=open("templates/staticfeed2.html","r")
         response = make_response(f.read())
         response.headers.set('Content-Type', 'application/rss+xml')
         f.close()
         return response
+
+    except Exception as e:
+            print(e)
+            return "ERR - " + str(e)
+
+
+@app.route("/dailyprivatenew",methods=["GET"])
+def dailyprivatenew():
+    try:
+        email_get=request.args.get('mail', '')
+        #time.sleep(0.05)
+        r = requests.get('https://www.we-wealth.com/api/sitecore/mailup/dailyprivatenew?mail='+email_get)
+        return r.text        
+
 
     except Exception as e:
             print(e)
