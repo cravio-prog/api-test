@@ -78,6 +78,19 @@ def dailyprivatenew():
             print(e)
             return "ERR - " + str(e)
 
+@app.route("/dailyprivate",methods=["GET"])
+def dailyprivate():
+    try:
+        email_get=request.args.get('mail', '')
+        #time.sleep(0.05)
+        r = requests.get('https://www.we-wealth.com/api/sitecore/mailup/dailyprivate?mail='+email_get)
+        return r.text        
+
+
+    except Exception as e:
+            print(e)
+            return "ERR - " + str(e)
+
 @app.route('/')
 def index():
     return "<p>Hello, World!</p>"
