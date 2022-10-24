@@ -70,8 +70,9 @@ def dailyprivatenew():
     try:
         email_get=request.args.get('mail', '')
         #time.sleep(0.05)
-        r = requests.get('https://www.we-wealth.com/api/sitecore/mailup/dailyprivatenew?mail='+email_get)
-        return r.text        
+        response = make_response(requests.get('https://www.we-wealth.com/api/sitecore/mailup/dailyprivatenew?mail='+email_get).text)
+        response.headers.set('Content-Type', 'application/rss+xml')
+        return response        
 
 
     except Exception as e:
@@ -83,8 +84,12 @@ def dailyprivate():
     try:
         email_get=request.args.get('mail', '')
         #time.sleep(0.05)
-        r = requests.get('https://www.we-wealth.com/api/sitecore/mailup/dailyprivate?mail='+email_get)
-        return r.text        
+
+        sitecore_response = requests.get('https://www.we-wealth.com/api/sitecore/mailup/dailyprivate?mail='+email_get)
+        response = make_response(sitecore_response.text)
+#        response.headers = sitecore_response.headers
+        response.headers.set('Content-Type', 'application/rss+xml')
+        return response        
 
 
     except Exception as e:
