@@ -19,13 +19,15 @@ def apiproc(nome=None):
                 try:
                     geoip = GeoIP("at_IbsACgQWCfaTLCkKT0s6Xg2nxBcbW")
                     # data = geoip.lookup(request.remote_addr)
-                    data = geoip.lookup(request.access_route[-1])
+                    ind = request.access_route[-1]
+                    return "IP = " + ind 
+                    data = geoip.lookup(ind)
                 except ConnectionError:
                     return "ERRORE CONNECTIONERROR"
                     # If you get here, it means you were unable to reach the geoipify
                     # service, most likely because of a network error on your end.
 
-                return data
+                return "IP = " + ind + data
 
             if nome== "mailfeed":
                 email_get=request.args.get('mail', '')
