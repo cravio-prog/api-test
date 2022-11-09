@@ -1,8 +1,9 @@
 from flask import Flask,render_template,request,redirect,url_for
 from flask import make_response
-import htmlmin
+import jsonify
 import requests
-import time
+from simple_geoip import GeoIP
+
 
 app = Flask(__name__)
 
@@ -14,13 +15,25 @@ def apiproc(nome=None):
         elif request.method=="GET":
             print("richiesta POST")
             print("nome",nome)
+            if nome== "geotest":
+                try:
+                    geoip = GeoIP("at_IbsACgQWCfaTLCkKT0s6Xg2nxBcbW")
+                    data = geoip.lookup("8.8.8.8")
+                except ConnectionError:
+                    return "ERRORE CONNECTIONERROR"
+                    # If you get here, it means you were unable to reach the geoipify
+                    # service, most likely because of a network error on your end.
+
+                return data
+
             if nome== "mailfeed":
                 email_get=request.args.get('mail', '')
                 if email_get != "":
-#                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
+    #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
                     return render_template("mailfeed.html",email=email_get)
                 else:
                     return "ERROR"
+
             if nome== "article":
                 email_get=request.args.get('mail', '')
 #                return render_template('output.html', columns=columns, row_data=email_serach[0], zip=zip)
@@ -29,7 +42,6 @@ def apiproc(nome=None):
             if nome== "staticfeed":
                 return render_template("staticfeed.html")
             if nome== "staticfeed2":
-
                 return render_template("staticfeed2.html")
 
     except Exception as e:
