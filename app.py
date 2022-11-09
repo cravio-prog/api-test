@@ -18,7 +18,7 @@ def apiproc(nome=None):
             if nome== "geotest":
                 try:
                     geoip = GeoIP("at_IbsACgQWCfaTLCkKT0s6Xg2nxBcbW")
-                    data = geoip.lookup("8.8.8.8")
+                    data = geoip.lookup(request.remote_addr)
                 except ConnectionError:
                     return "ERRORE CONNECTIONERROR"
                     # If you get here, it means you were unable to reach the geoipify
